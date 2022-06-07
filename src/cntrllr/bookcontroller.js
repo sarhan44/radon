@@ -1,22 +1,22 @@
-const bm = require("../modell/bm")
+const bookmodel = require("../modell/bookmodel")
 
 
 
 
 const createBook = async function(req, res) {
     let data = req.body
-    let safeData = await bm.create(data)
+    let safeData = await bookmodel.create(data)
     res.send({ msg: safeData })
 }
 
 
 const bookList = async function(req, res) {
-    let allbooks = await bm.find()
+    let allbooks = await bookmodel.find()
     res.send({ msg: allbooks })
 }
 const getBooksInYear = async function(req, res) {
     let putdata = req.body.year
-    let getbooks = await bm.find({
+    let getbooks = await bookmodel.find({
         "year": putdata
     })
 
@@ -24,13 +24,13 @@ const getBooksInYear = async function(req, res) {
 }
 const getParticularBooks = async function(req, res) {
     let putparticular = req.body
-    let getParticular = await bm.find(
+    let getParticular = await bookmodel.find(
         putparticular)
 
     res.send({ msg: getParticular })
 }
 const getXINRBooks = async function(re, res) {
-    let InrBooks = await bm.find({
+    let InrBooks = await bookmodel.find({
         $or: [{
             "price.indianPrice": {
                 $eq: "100 rs "
@@ -47,7 +47,7 @@ const getXINRBooks = async function(re, res) {
     res.send({ msg: InrBooks })
 }
 const getRandomBooks = async function(req, res) {
-    let RandomBooks = await bm.find({ $or: [{ stockAvailable: true }, { totalPages: { $gt: 500 } }] })
+    let RandomBooks = await bookmodel.find({ $or: [{ stockAvailable: true }, { totalPages: { $gt: 500 } }] })
     res.send({ msg: RandomBooks })
 }
 
