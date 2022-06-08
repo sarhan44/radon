@@ -9,7 +9,7 @@ const newBook = async function(req, res) {
     let saveData = await bookModel.create(data)
     res.send({ msg: saveData })
 }
-const newAuthor = async function(req, res) {
+const createAuthor = async function(req, res) {
     let datas = req.body
     let authorData = await authorModel.create(datas)
     res.send({ msg: authorData })
@@ -55,6 +55,6 @@ const costList = async function(req,res){
 
 module.exports.costList = costList
 module.exports.newBook = newBook
-module.exports.newAuthor = newAuthor
+module.exports.createAuthor = createAuthor
 module.exports.booksByChetan = booksByChetan
 module.exports.authorOfBook = authorOfBook

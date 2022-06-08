@@ -3,7 +3,7 @@ const router = express.Router();
 const newController = require("../controllers/newBookController")
 
 router.post("/newBook", newController.newBook)
-router.post("/newAuthor", newController.newAuthor)
+router.post("/createAuthor", newController.createAuthor)
 router.get("/booksByChetan", newController.booksByChetan)
 router.get("/authorOfBook", newController.authorOfBook)
 router.get("/costList", newController.costList)
