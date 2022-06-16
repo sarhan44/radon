@@ -123,8 +123,8 @@ const postMessage = async function (req, res) {
 
     //return the updated user document
     return res.status(201).send({ status: true, data: updatedUser });
-  } catch (err) {
-    res.send({ msg: "error", err });
+  } catch (error) {
+    res.send({ msg: "error", error });
   }
 };
 
