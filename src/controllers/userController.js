@@ -57,7 +57,7 @@
       return res.send("No such user exists");
     }
     let updatedUser = await userModel.findOneAndUpdate({_id: userId,},userData);
-    res.send({status: updatedUser,data: updatedUser,});
+    res.send({status: true,data: updatedUser,});
   };
 
   // =================[ Delete User ]==============
@@ -71,8 +71,25 @@
 
     let userData = req.body;
     let updatedUser = await userModel.findOneAndUpdate({_id: userId,},userData);
-    res.send({status: userData,data: updatedUser,});
+    res.send({status: true,data: updatedUser,});
   };
+
+  // =================[ Update Post ]==============
+
+  const postMessage = async function (req, res) {
+    let message = req.body.message
+    
+    let user = await userModel.findById(req.params.userId)
+    if(!user) return res.send({status: false, msg: 'No such user exists'})
+    
+    let updatedPosts = user.posts
+    //add the message to user's posts
+    updatedPosts.push(message)
+    let updatedUser = await userModel.findOneAndUpdate({_id: user._id},{posts: updatedPosts}, {new: true})
+
+    //return the updated user document
+    return res.send({status: true, data: updatedUser})
+}
 
 
   // =====================[ Exports ]===============
@@ -82,3 +99,4 @@
   module.exports.updateUser = updateUser;
   module.exports.loginUser = loginUser;
   module.exports.deleteUser = deleteUser;
+  module.exports.postMessage = postMessage
