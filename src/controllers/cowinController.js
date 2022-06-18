@@ -1,8 +1,7 @@
 let axios = require("axios")
 
-
+// ==========================[ Get States ]====================================
 let getStates = async function (req, res) {
-
     try {
         let options = {
             method: 'get',
@@ -18,7 +17,7 @@ let getStates = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
-
+// ==========================[ Get District ]====================================
 
 let getDistricts = async function (req, res) {
     try {
@@ -37,6 +36,29 @@ let getDistricts = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+
+// ==========================[ get By Districts ]====================================
+
+let getByDistricts = async function (req, res) {
+    try {
+        let id = req.query.district_id
+        let date = req.query.date
+
+        let options = {
+            method: "get",
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${id}&date=${date}`
+        }
+        let result = await axios(options);
+        let data = result.data
+        res.status(200).send({ msg: data, status: true })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ msg: err.message })
+    }
+}
+
+// ==========================[ Get By Pin ]====================================
 
 let getByPin = async function (req, res) {
     try {
@@ -57,6 +79,8 @@ let getByPin = async function (req, res) {
     }
 }
 
+// ==========================[ Get OTP ]==================================== 
+
 let getOtp = async function (req, res) {
     try {
         let blahhh = req.body
@@ -69,7 +93,6 @@ let getOtp = async function (req, res) {
         }
 
         let result = await axios(options)
-        console.log(result.data)
         res.status(200).send({ msg: result.data })
     }
     catch (err) {
@@ -79,7 +102,9 @@ let getOtp = async function (req, res) {
 }
 
 
+
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
+module.exports.getByDistricts = getByDistricts
 module.exports.getByPin = getByPin
 module.exports.getOtp = getOtp
